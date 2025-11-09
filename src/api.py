@@ -3,8 +3,44 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 from src.explain import compute_shap, load_artifacts
+from fastapi.responses import HTMLResponse
 
 app = FastAPI(title="Startup Success Predictor (final)")
+@app.get("/", response_class=HTMLResponse)
+def home():
+    return """
+    <html>
+        <head>
+            <title>Startup Success Predictor 🚀</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+                    color: white;
+                    height: 100vh;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                h1 { font-size: 2.5em; margin-bottom: 0.3em; }
+                p { font-size: 1.2em; }
+                a {
+                    color: #ffe58f;
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+                a:hover { text-decoration: underline; }
+            </style>
+        </head>
+        <body>
+            <h1>🚀 Startup Success Predictor API</h1>
+            <p>Welcome! Use the <a href="/docs">/docs</a> page to test predictions.</p>
+            <p>Powered by <strong>FastAPI</strong> & Render Cloud</p>
+        </body>
+    </html>
+    """
 
 class Item(BaseModel):
     data: dict
